@@ -3,233 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sudoku Master - High Scores</title>
+  <title>Sudoku Master - Easy Game</title>
   <link rel="stylesheet" href="../css/common.css">
   <style>
-    .scores-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .score-tabs {
+    .game-header {
       display: flex;
-      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 2rem;
-      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
-    .score-tab {
-      padding: 0.75rem 2rem;
+    .game-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .number-pad {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
+      max-width: 360px;
+    }
+    .number-btn {
+      padding: 0.75rem;
       border-radius: 8px;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .score-tab:hover, .score-tab.active {
-      background: var(--primary);
       color: var(--text-light);
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .number-btn:hover {
+      background: var(--primary);
       border-color: var(--primary);
     }
-    .rank-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
+    .easy-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--success);
+      border-radius: 20px;
+      font-size: 0.8rem;
       font-weight: bold;
-      font-size: 0.9rem;
-    }
-    .rank-1 { background: linear-gradient(135deg, #ffd700, #ffb700); color: #000; }
-    .rank-2 { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: #000; }
-    .rank-3 { background: linear-gradient(135deg, #cd7f32, #b87333); color: #fff; }
-    .rank-other { background: var(--bg-dark); color: var(--text-muted); }
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: var(--text-light);
-    }
-    .username {
-      font-weight: 600;
-    }
-    .completed-count {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
-    .stats-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .stat-card {
-      text-align: center;
-      padding: 1.5rem;
-    }
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: bold;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .stat-label {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
+      margin-left: 0.5rem;
     }
     @media (max-width: 768px) {
-      .score-tabs { flex-wrap: wrap; }
-      .score-tab { padding: 0.5rem 1rem; font-size: 0.85rem; }
+      .game-header { justify-content: center; text-align: center; }
+      .number-pad { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <a href="/" class="nav-logo"><span>Sudoku Master</span></a>
+    <a href="../" class="nav-logo"><span>Sudoku Master</span></a>
     <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/selection/">Play</a></li>
-      <li><a href="/rules/">Rules</a></li>
-      <li><a href="/highscores/" class="active">Scores</a></li>
-      <li><a href="/login/">Login</a></li>
-      <li><a href="/register/">Register</a></li>
+      <li><a href="../">Home</a></li>
+      <li><a href="../selection/" class="active">Play</a></li>
+      <li><a href="../rules/">Rules</a></li>
+      <li><a href="../highscores/">Scores</a></li>
+      <li><a href="../login/">Login</a></li>
+      <li><a href="../register/">Register</a></li>
     </ul>
   </nav>
 
   <main class="container">
     <div class="page-title">
-      <h1>High Scores</h1>
-      <p>Top Sudoku masters worldwide</p>
+      <h1>Easy Game - 6×6 <span class="easy-badge">EASY</span></h1>
+      <p>Beginner's Delight by Sarah Chen</p>
     </div>
 
-    <div class="scores-container">
-      <div class="stats-cards">
-        <div class="card stat-card">
-          <div class="stat-number">1,247</div>
-          <div class="stat-label">Total Players</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-number">15,832</div>
-          <div class="stat-label">Puzzles Solved</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-number">2:34</div>
-          <div class="stat-label">Best Time (Easy)</div>
-        </div>
+    <div class="game-header">
+      <div class="timer">⏱️ <span>05:21</span></div>
+      <div class="game-controls">
+        <button class="btn btn-secondary">Hint</button>
+        <button class="btn btn-secondary">Undo</button>
+        <button class="btn btn-primary">Check</button>
+      </div>
+    </div>
+
+    <div class="sudoku-container">
+      <div class="sudoku-grid grid-6x6">
+        <div class="sudoku-cell prefilled">5</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">3</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">1</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">6</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">5</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">3</div>
+
+        <div class="sudoku-cell prefilled">3</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">6</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">5</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">5</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">3</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">6</div>
+
+        <div class="sudoku-cell prefilled">6</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">5</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">3</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">3</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">6</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">5</div>
       </div>
 
-      <div class="score-tabs">
-        <span class="score-tab active">All Time</span>
-        <span class="score-tab">This Week</span>
-        <span class="score-tab">Today</span>
-      </div>
-
-      <div class="card">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Player</th>
-              <th>Completed</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="rank-badge rank-1">1</span></td>
-              <td>
-                <div class="user-info">
-                  <div class="avatar">S</div>
-                  <span class="username">SudokuMaster99</span>
-                </div>
-              </td>
-              <td class="completed-count">487</td>
-            </tr>
-            <tr>
-              <td><span class="rank-badge rank-2">2</span></td>
-              <td>
-                <div class="user-info">
-                  <div class="avatar">P</div>
-                  <span class="username">PuzzleKing</span>
-                </div>
-              </td>
-              <td class="completed-count">423</td>
-            </tr>
-            <tr>
-              <td><span class="rank-badge rank-3">3</span></td>
-              <td>
-                <div class="user-info">
-                  <div class="avatar">N</div>
-                  <span class="username">NumberNinja</span>
-                </div>
-              </td>
-              <td class="completed-count">398</td>
-            </tr>
-            <tr>
-              <td><span class="rank-badge rank-other">4</span></td>
-              <td>
-                <div class="user-info">
-                  <div class="avatar">L</div>
-                  <span class="username">LogicLover</span>
-                </div>
-              </td>
-              <td class="completed-count">356</td>
-            </tr>
-            <tr>
-              <td><span class="rank-badge rank-other">5</span></td>
-              <td>
-                <div class="user-info">
-                  <div class="avatar">B</div>
-                  <span class="username">BrainTeaser</span>
-                </div>
-              </td>
-              <td class="completed-count">312</td>
-            </tr>
-            <tr>
-              <td><span class="rank-badge rank-other">6</span></td>
-              <td>
-                <div class="user-info">
-                  <div class="avatar">G</div>
-                  <span class="username">GridGuru</span>
-                </div>
-              </td>
-              <td class="completed-count">289</td>
-            </tr>
-            <tr>
-              <td><span class="rank-badge rank-other">7</span></td>
-              <td>
-                <div class="user-info">
-                  <div class="avatar">M</div>
-                  <span class="username">MathWizard</span>
-                </div>
-              </td>
-              <td class="completed-count">267</td>
-            </tr>
-            <tr>
-              <td><span class="rank-badge rank-other">8</span></td>
-              <td>
-                <div class="user-info">
-                  <div class="avatar">C</div>
-                  <span class="username">CellSolver</span>
-                </div>
-              </td>
-              <td class="completed-count">245</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="number-pad">
+        <button class="number-btn">1</button>
+        <button class="number-btn">2</button>
+        <button class="number-btn">3</button>
+        <button class="number-btn">4</button>
+        <button class="number-btn">5</button>
+        <button class="number-btn">6</button>
       </div>
     </div>
   </main>

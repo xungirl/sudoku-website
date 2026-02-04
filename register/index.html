@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sudoku Master - Register</title>
+  <title>Sudoku Master - Login</title>
   <link rel="stylesheet" href="../css/common.css">
   <style>
     .auth-container {
@@ -27,13 +27,12 @@
     .auth-form {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.5rem;
     }
     .auth-form .btn {
       width: 100%;
       padding: 1rem;
       font-size: 1rem;
-      margin-top: 0.5rem;
     }
     .auth-divider {
       display: flex;
@@ -62,24 +61,30 @@
     .auth-footer a:hover {
       color: var(--secondary);
     }
-    .terms-row {
+    .remember-row {
       display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.85rem;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
     }
-    .terms-row input[type="checkbox"] {
+    .remember-row label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .remember-row input[type="checkbox"] {
       width: 18px;
       height: 18px;
       accent-color: var(--primary);
-      margin-top: 2px;
     }
-    .terms-row label {
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    .terms-row a {
+    .forgot-link {
       color: var(--primary);
+      transition: color 0.3s;
+    }
+    .forgot-link:hover {
+      color: var(--secondary);
     }
     .logo-icon {
       width: 60px;
@@ -92,79 +97,61 @@
       justify-content: center;
       font-size: 1.75rem;
     }
-    .password-hint {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: -0.5rem;
-    }
-    @media (max-width: 768px) {
-      .auth-card { padding: 1.5rem; }
-    }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <a href="/" class="nav-logo"><span>Sudoku Master</span></a>
+    <a href="../" class="nav-logo"><span>Sudoku Master</span></a>
     <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/selection/">Play</a></li>
-      <li><a href="/rules/">Rules</a></li>
-      <li><a href="/highscores/">Scores</a></li>
-      <li><a href="/login/">Login</a></li>
-      <li><a href="/register/" class="active">Register</a></li>
+      <li><a href="../">Home</a></li>
+      <li><a href="../selection/">Play</a></li>
+      <li><a href="../rules/">Rules</a></li>
+      <li><a href="../highscores/">Scores</a></li>
+      <li><a href="../login/" class="active">Login</a></li>
+      <li><a href="../register/">Register</a></li>
     </ul>
   </nav>
 
   <main class="container">
     <div class="page-title">
-      <h1>Register</h1>
-      <p>Join our community of puzzle enthusiasts</p>
+      <h1>Login</h1>
+      <p>Welcome back, puzzle master!</p>
     </div>
 
     <div class="auth-container">
       <div class="card auth-card">
         <div class="auth-header">
-          <div class="logo-icon">🎯</div>
-          <h2>Create Account</h2>
-          <p>Start your Sudoku journey today</p>
+          <div class="logo-icon">🧩</div>
+          <h2>Sign In</h2>
+          <p>Enter your credentials to continue</p>
         </div>
 
         <div class="auth-form">
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" id="username" placeholder="Choose a username">
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" id="email" placeholder="Enter your email">
+            <input type="text" id="username" placeholder="Enter your username">
           </div>
 
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Create a password">
-            <p class="password-hint">Must be at least 8 characters</p>
+            <input type="password" id="password" placeholder="Enter your password">
           </div>
 
-          <div class="form-group">
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" placeholder="Confirm your password">
-          </div>
-
-          <div class="terms-row">
-            <input type="checkbox" id="terms">
-            <label for="terms">
-              I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+          <div class="remember-row">
+            <label>
+              <input type="checkbox">
+              <span>Remember me</span>
             </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
           </div>
 
-          <button class="btn btn-primary">Create Account</button>
+          <button class="btn btn-primary">Sign In</button>
         </div>
 
         <div class="auth-divider">or</div>
 
         <p class="auth-footer">
-          Already have an account? <a href="/login/">Sign in</a>
+          Don't have an account? <a href="../register/">Sign up</a>
         </p>
       </div>
     </div>
