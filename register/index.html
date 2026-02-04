@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku Master - Register</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .auth-container {
+      max-width: 420px;
+      margin: 2rem auto;
+    }
+    .auth-card {
+      padding: 2.5rem;
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .auth-header h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .auth-header p {
+      color: var(--text-muted);
+    }
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .auth-form .btn {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text-muted);
+      margin: 1rem 0;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .auth-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--text-muted);
+    }
+    .auth-footer a {
+      color: var(--primary);
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .auth-footer a:hover {
+      color: var(--secondary);
+    }
+    .terms-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+    .terms-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      margin-top: 2px;
+    }
+    .terms-row label {
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .terms-row a {
+      color: var(--primary);
+    }
+    .logo-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+    .password-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: -0.5rem;
+    }
+    @media (max-width: 768px) {
+      .auth-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-logo"><span>Sudoku Master</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/selection/">Play</a></li>
+      <li><a href="/rules/">Rules</a></li>
+      <li><a href="/highscores/">Scores</a></li>
+      <li><a href="/login/">Login</a></li>
+      <li><a href="/register/" class="active">Register</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <div class="page-title">
+      <h1>Register</h1>
+      <p>Join our community of puzzle enthusiasts</p>
+    </div>
+
+    <div class="auth-container">
+      <div class="card auth-card">
+        <div class="auth-header">
+          <div class="logo-icon">🎯</div>
+          <h2>Create Account</h2>
+          <p>Start your Sudoku journey today</p>
+        </div>
+
+        <div class="auth-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Choose a username">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="Enter your email">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Create a password">
+            <p class="password-hint">Must be at least 8 characters</p>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" placeholder="Confirm your password">
+          </div>
+
+          <div class="terms-row">
+            <input type="checkbox" id="terms">
+            <label for="terms">
+              I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            </label>
+          </div>
+
+          <button class="btn btn-primary">Create Account</button>
+        </div>
+
+        <div class="auth-divider">or</div>
+
+        <p class="auth-footer">
+          Already have an account? <a href="/login/">Sign in</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Sudoku Master. Built with HTML & CSS.</p>
+  </footer>
+</body>
+</html>

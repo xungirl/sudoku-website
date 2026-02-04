@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku Master - Select Game</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .difficulty-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .tab {
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .tab:hover, .tab.active {
+      background: var(--primary);
+      color: var(--text-light);
+      border-color: var(--primary);
+    }
+    .game-item .difficulty {
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .difficulty.easy {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--success);
+    }
+    .difficulty.hard {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--error);
+    }
+    .game-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-logo"><span>Sudoku Master</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/selection/" class="active">Play</a></li>
+      <li><a href="/rules/">Rules</a></li>
+      <li><a href="/highscores/">Scores</a></li>
+      <li><a href="/login/">Login</a></li>
+      <li><a href="/register/">Register</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <div class="page-title">
+      <h1>Select a Game</h1>
+      <p>Choose a puzzle to solve</p>
+    </div>
+
+    <div class="difficulty-tabs">
+      <span class="tab active">All Games</span>
+      <span class="tab">Easy (6x6)</span>
+      <span class="tab">Hard (9x9)</span>
+    </div>
+
+    <div class="game-list">
+      <a href="/game-hard/" class="game-item">
+        <div class="game-info">
+          <h3>Classic Challenge #42</h3>
+          <p>by Alex Thompson</p>
+        </div>
+        <div class="game-meta">
+          <span class="difficulty hard">Hard</span>
+          <span class="btn btn-primary">Play</span>
+        </div>
+      </a>
+
+      <a href="/game-easy/" class="game-item">
+        <div class="game-info">
+          <h3>Beginner's Delight</h3>
+          <p>by Sarah Chen</p>
+        </div>
+        <div class="game-meta">
+          <span class="difficulty easy">Easy</span>
+          <span class="btn btn-primary">Play</span>
+        </div>
+      </a>
+
+      <a href="/game-hard/" class="game-item">
+        <div class="game-info">
+          <h3>Mind Bender</h3>
+          <p>by Mike Johnson</p>
+        </div>
+        <div class="game-meta">
+          <span class="difficulty hard">Hard</span>
+          <span class="btn btn-primary">Play</span>
+        </div>
+      </a>
+
+      <a href="/game-easy/" class="game-item">
+        <div class="game-info">
+          <h3>Morning Warm-up</h3>
+          <p>by Emily Davis</p>
+        </div>
+        <div class="game-meta">
+          <span class="difficulty easy">Easy</span>
+          <span class="btn btn-primary">Play</span>
+        </div>
+      </a>
+
+      <a href="/game-hard/" class="game-item">
+        <div class="game-info">
+          <h3>Expert's Paradise</h3>
+          <p>by David Kim</p>
+        </div>
+        <div class="game-meta">
+          <span class="difficulty hard">Hard</span>
+          <span class="btn btn-primary">Play</span>
+        </div>
+      </a>
+
+      <a href="/game-easy/" class="game-item">
+        <div class="game-info">
+          <h3>Quick Puzzle</h3>
+          <p>by Lisa Wang</p>
+        </div>
+        <div class="game-meta">
+          <span class="difficulty easy">Easy</span>
+          <span class="btn btn-primary">Play</span>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Sudoku Master. Built with HTML & CSS.</p>
+  </footer>
+</body>
+</html>

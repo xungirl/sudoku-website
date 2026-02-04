@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku Master - Rules</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .rules-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .rule-section {
+      margin-bottom: 2rem;
+    }
+    .rule-section h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .rule-section h3 {
+      color: var(--secondary);
+      margin: 1.5rem 0 0.75rem;
+    }
+    .rule-section p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .rule-grid-example {
+      display: grid;
+      grid-template-columns: repeat(3, 40px);
+      gap: 2px;
+      background: var(--text-light);
+      padding: 2px;
+      border-radius: 4px;
+      width: fit-content;
+      margin: 1rem 0;
+    }
+    .example-cell {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      font-weight: bold;
+      color: var(--primary);
+    }
+    .credits-section {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    .credits-section h2 {
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+    }
+    .credits-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .credit-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-dark);
+      border-radius: 8px;
+      color: var(--text-light);
+      transition: all 0.3s;
+    }
+    .credit-link:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+    }
+    .credit-icon {
+      font-size: 1.2rem;
+    }
+    .highlight {
+      color: var(--primary);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-logo"><span>Sudoku Master</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/selection/">Play</a></li>
+      <li><a href="/rules/" class="active">Rules</a></li>
+      <li><a href="/highscores/">Scores</a></li>
+      <li><a href="/login/">Login</a></li>
+      <li><a href="/register/">Register</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <div class="page-title">
+      <h1>How to Play Sudoku</h1>
+      <p>Master the classic number puzzle</p>
+    </div>
+
+    <div class="rules-content">
+      <section class="rule-section card">
+        <h2>Basic Rules</h2>
+        <p>Sudoku is a logic-based number placement puzzle. The objective is to fill a grid with digits so that each column, each row, and each of the subgrids contain all of the digits from <span class="highlight">1 to N</span>, where N is the size of the grid.</p>
+        
+        <h3>The Grid</h3>
+        <p>A standard Sudoku puzzle uses a <span class="highlight">9×9 grid</span>, divided into nine 3×3 subgrids called "boxes" or "regions". Our Easy mode uses a <span class="highlight">6×6 grid</span> with 2×3 subgrids, perfect for beginners!</p>
+
+        <h3>The Goal</h3>
+        <p>Fill in every empty cell with a number. When complete, every row, column, and subgrid must contain each number exactly once, with no repetition.</p>
+
+        <div class="rule-grid-example">
+          <div class="example-cell">1</div>
+          <div class="example-cell">2</div>
+          <div class="example-cell">3</div>
+          <div class="example-cell">4</div>
+          <div class="example-cell">5</div>
+          <div class="example-cell">6</div>
+          <div class="example-cell">7</div>
+          <div class="example-cell">8</div>
+          <div class="example-cell">9</div>
+        </div>
+      </section>
+
+      <section class="rule-section card">
+        <h2>Game Modes</h2>
+        
+        <h3>Easy Mode (6×6)</h3>
+        <p>Perfect for beginners! The grid is smaller with numbers 1-6. Subgrids are 2×3 rectangles. Great for learning the logic patterns without being overwhelmed.</p>
+
+        <h3>Hard Mode (9×9)</h3>
+        <p>The classic Sudoku experience! A 9×9 grid with numbers 1-9 and 3×3 subgrids. More complex patterns and longer solving times make this a true mental challenge.</p>
+      </section>
+
+      <section class="rule-section card">
+        <h2>Tips & Strategies</h2>
+        
+        <h3>Scanning</h3>
+        <p>Look across rows and columns to find where a specific number can go. If a number appears in two rows of a box, it must go in the third row.</p>
+
+        <h3>Elimination</h3>
+        <p>For each empty cell, note which numbers are already in its row, column, and box. The remaining possibilities are your candidates.</p>
+
+        <h3>Single Candidate</h3>
+        <p>If only one number is possible for a cell after elimination, that must be the answer!</p>
+
+        <h3>Take Your Time</h3>
+        <p>Sudoku rewards patience and logical thinking. Don't guess - every puzzle has a unique solution that can be found through pure logic.</p>
+      </section>
+
+      <section class="credits-section">
+        <h2>Made By</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">This project was created for CS5010 Web Development course.</p>
+        
+        <div class="credits-links">
+          <a href="mailto:your.email@example.com" class="credit-link">
+            <span class="credit-icon">📧</span>
+            <span>Email</span>
+          </a>
+          <a href="https://github.com/yourusername" class="credit-link">
+            <span class="credit-icon">💻</span>
+            <span>GitHub</span>
+          </a>
+          <a href="https://linkedin.com/in/yourusername" class="credit-link">
+            <span class="credit-icon">💼</span>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Sudoku Master. Built with HTML & CSS.</p>
+  </footer>
+</body>
+</html>

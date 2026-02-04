@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku Master - Hard Game</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .game-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .number-pad {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 0.5rem;
+      max-width: 450px;
+    }
+    .number-btn {
+      padding: 0.75rem;
+      border-radius: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .number-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    @media (max-width: 768px) {
+      .game-header { justify-content: center; text-align: center; }
+      .number-pad { grid-template-columns: repeat(5, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-logo"><span>Sudoku Master</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/selection/" class="active">Play</a></li>
+      <li><a href="/rules/">Rules</a></li>
+      <li><a href="/highscores/">Scores</a></li>
+      <li><a href="/login/">Login</a></li>
+      <li><a href="/register/">Register</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <div class="page-title">
+      <h1>Hard Game - 9×9</h1>
+      <p>Classic Challenge #42 by Alex Thompson</p>
+    </div>
+
+    <div class="game-header">
+      <div class="timer">⏱️ <span>12:34</span></div>
+      <div class="game-controls">
+        <button class="btn btn-secondary">Hint</button>
+        <button class="btn btn-secondary">Undo</button>
+        <button class="btn btn-primary">Check</button>
+      </div>
+    </div>
+
+    <div class="sudoku-container">
+      <div class="sudoku-grid grid-9x9">
+        <div class="sudoku-cell prefilled">5</div>
+        <div class="sudoku-cell prefilled">3</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">7</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+
+        <div class="sudoku-cell prefilled">6</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">1</div>
+        <div class="sudoku-cell prefilled">9</div>
+        <div class="sudoku-cell prefilled">5</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">9</div>
+        <div class="sudoku-cell prefilled">8</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">6</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+
+        <div class="sudoku-cell prefilled">8</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">6</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">3</div>
+
+        <div class="sudoku-cell prefilled">4</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">8</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">3</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">1</div>
+
+        <div class="sudoku-cell prefilled">7</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">2</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">6</div>
+
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">6</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">2</div>
+        <div class="sudoku-cell prefilled">8</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">4</div>
+        <div class="sudoku-cell prefilled">1</div>
+        <div class="sudoku-cell prefilled">9</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">5</div>
+
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">8</div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="sudoku-cell prefilled">7</div>
+        <div class="sudoku-cell prefilled">9</div>
+      </div>
+
+      <div class="number-pad">
+        <button class="number-btn">1</button>
+        <button class="number-btn">2</button>
+        <button class="number-btn">3</button>
+        <button class="number-btn">4</button>
+        <button class="number-btn">5</button>
+        <button class="number-btn">6</button>
+        <button class="number-btn">7</button>
+        <button class="number-btn">8</button>
+        <button class="number-btn">9</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Sudoku Master. Built with HTML & CSS.</p>
+  </footer>
+</body>
+</html>
