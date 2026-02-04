@@ -1,68 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sudoku Master - Easy Game</title>
-  <link rel="stylesheet" href="../css/common.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudoku Master - Scores</title>
+  <link rel="stylesheet" href="../css/common.css" />
   <style>
-    .game-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-      gap: 1rem;
+    .scores-wrap {
+      max-width: 900px;
+      margin: 2rem auto;
     }
-    .game-controls {
-      display: flex;
-      gap: 0.5rem;
+
+    .scores-card {
+      padding: 2rem;
     }
-    .number-pad {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 0.5rem;
-      max-width: 360px;
+
+    .scores-card h2 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
     }
-    .number-btn {
-      padding: 0.75rem;
-      border-radius: 8px;
-      background: var(--bg-card);
+
+    .scores-card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-top: 0;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 1rem;
       border: 1px solid var(--border);
-      color: var(--text-light);
-      font-size: 1.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s;
+      border-radius: 12px;
     }
-    .number-btn:hover {
-      background: var(--primary);
-      border-color: var(--primary);
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px;
+      background: transparent;
     }
-    .easy-badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      background: rgba(34, 197, 94, 0.2);
-      color: var(--success);
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      margin-left: 0.5rem;
+
+    thead th {
+      text-align: left;
+      padding: 0.9rem 1rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
     }
+
+    tbody td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover td {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.03);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .rank {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .completed {
+      font-weight: 700;
+      color: var(--text);
+    }
+
     @media (max-width: 768px) {
-      .game-header { justify-content: center; text-align: center; }
-      .number-pad { grid-template-columns: repeat(3, 1fr); }
+      .scores-card {
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
     <a href="../" class="nav-logo"><span>Sudoku Master</span></a>
     <ul class="nav-links">
       <li><a href="../">Home</a></li>
-      <li><a href="../selection/" class="active">Play</a></li>
+      <li><a href="../selection/">Play</a></li>
       <li><a href="../rules/">Rules</a></li>
-      <li><a href="../highscores/">Scores</a></li>
+      <li><a href="../highscores/" class="active">Scores</a></li>
       <li><a href="../login/">Login</a></li>
       <li><a href="../register/">Register</a></li>
     </ul>
@@ -70,71 +99,70 @@
 
   <main class="container">
     <div class="page-title">
-      <h1>Easy Game - 6×6 <span class="easy-badge">EASY</span></h1>
-      <p>Beginner's Delight by Sarah Chen</p>
+      <h1>High Scores</h1>
+      <p>Leaderboard based on the number of puzzles completed.</p>
     </div>
 
-    <div class="game-header">
-      <div class="timer">⏱️ <span>05:21</span></div>
-      <div class="game-controls">
-        <button class="btn btn-secondary">Hint</button>
-        <button class="btn btn-secondary">Undo</button>
-        <button class="btn btn-primary">Check</button>
-      </div>
-    </div>
+    <div class="scores-wrap">
+      <div class="card scores-card">
+        <h2>Leaderboard</h2>
+        <p>
+          # Usernames and scores are examples.
+        </p>
 
-    <div class="sudoku-container">
-      <div class="sudoku-grid grid-6x6">
-        <div class="sudoku-cell prefilled">5</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">3</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">1</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
+        <div class="table-wrap" aria-label="High score table">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 90px;">Rank</th>
+                <th>Username</th>
+                <th style="width: 180px;">Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="rank">#1</td>
+                <td>Elisa</td>
+                <td class="completed">284</td>
+              </tr>
+              <tr>
+                <td class="rank">#2</td>
+                <td> Wong</td>
+                <td class="completed">251</td>
+              </tr>
+              <tr>
+                <td class="rank">#3</td>
+                <td></td>
+                <td class="completed"></td>
+              </tr>
+              <tr>
+                <td class="rank">#4</td>
+                <td></td>
+                <td class="completed"></td>
+              </tr>
+              <tr>
+                <td class="rank">#5</td>
+                <td></td>
+                <td class="completed"></td>
+              </tr>
+              <tr>
+                <td class="rank">#6</td>
+                <td></td>
+                <td class="completed"></td>
+              </tr>
+              <tr>
+                <td class="rank">#7</td>
+                <td></td>
+                <td class="completed"></td>
+              </tr>
+         
+    
+          
+            </tbody>
+          </table>
+        </div>
 
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">6</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">5</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">3</div>
-
-        <div class="sudoku-cell prefilled">3</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">6</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">5</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">5</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">3</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">6</div>
-
-        <div class="sudoku-cell prefilled">6</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">5</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">3</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">3</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">6</div>
-        <div class="sudoku-cell"><input type="text" maxlength="1"></div>
-        <div class="sudoku-cell prefilled">5</div>
-      </div>
-
-      <div class="number-pad">
-        <button class="number-btn">1</button>
-        <button class="number-btn">2</button>
-        <button class="number-btn">3</button>
-        <button class="number-btn">4</button>
-        <button class="number-btn">5</button>
-        <button class="number-btn">6</button>
+      
       </div>
     </div>
   </main>
