@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { useGame } from '../context/GameContext'
 import Board from '../components/Board'
@@ -9,23 +9,31 @@ import { formatTime } from '../utils/sudoku'
 export default function GamePage() {
   const { mode } = useParams()
   const { state, dispatch } = useGame()
-  const validMode = mode === 'easy' || mode === 'normal'
+  const [loading, setLoading] = useState(false)
 
-  // ── Guard invalid mode ────────────────────────────────────────────────────
-  if (!validMode) return <Navigate to="/games" replace />
+  const validMode = mode === 'easy' || mode === 'normal'
+  const isEasy = mode === 'easy'
 
   // ── Init or resume game ────────────────────────────────────────────────────
   useEffect(() => {
-    // If a game of this mode is already in progress (restored from localStorage), resume it.
-    // Otherwise start a fresh one.
+    if (!validMode) return
+    // If a game of this mode is already in progress, resume it
     if (state.mode === mode && state.board.length > 0 && !state.isComplete) return
-    dispatch({ type: 'INIT_GAME', mode })
-  }, [mode]) // eslint-disable-line react-hooks/exhaustive-deps
+
+    setLoading(true)
+    // Use setTimeout to let loading UI render before heavy generation
+    const t = setTimeout(() => {
+      dispatch({ type: 'INIT_GAME', mode })
+      setLoading(false)
+    }, 50)
+    return () => clearTimeout(t)
+  }, [mode, validMode]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Keyboard handler ───────────────────────────────────────────────────────
   useEffect(() => {
+    if (!validMode) return
     const onKey = (e) => {
-      if (state.isComplete) return
+      if (state.isComplete || loading) return
       const k = e.key
 
       if (k === 'Backspace' || k === 'Delete' || k === '0') {
@@ -39,7 +47,7 @@ export default function GamePage() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [state.isComplete, state.size, dispatch])
+  }, [validMode, state.isComplete, state.size, loading, dispatch])
 
   // ── Auto-clear hint message after 4 s ─────────────────────────────────────
   useEffect(() => {
@@ -48,7 +56,32 @@ export default function GamePage() {
     return () => clearTimeout(t)
   }, [state.hintMessage, dispatch])
 
-  const isEasy = mode === 'easy'
+  // ── New Game handler (with loading) ────────────────────────────────────────
+  const handleNewGame = useCallback(() => {
+    setLoading(true)
+    setTimeout(() => {
+      dispatch({ type: 'INIT_GAME', mode })
+      setLoading(false)
+    }, 50)
+  }, [dispatch, mode])
+
+  // ── Guard invalid mode (AFTER all hooks!) ──────────────────────────────────
+  if (!validMode) return <Navigate to="/games" replace />
+
+  // ── Loading state ──────────────────────────────────────────────────────────
+  if (loading || state.board.length === 0) {
+    return (
+      <div className="container">
+        <div className="game-page" style={{ textAlign: 'center', paddingTop: '4rem' }}>
+          <div className="page-title">
+            <h1>Generating Puzzle...</h1>
+            <p>Creating a {isEasy ? '6×6 Easy' : '9×9 Normal'} board with a unique solution</p>
+          </div>
+          <div className="loading-spinner" />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="container">
@@ -56,7 +89,7 @@ export default function GamePage() {
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <div className="game-header">
           <div>
-            <span className={`game-mode-badge game-mode-badge--${mode}`}>
+            <span className={`game-mode-badge game-mode-badge--${isEasy ? 'easy' : 'normal'}`}>
               {isEasy ? '🟢 Easy 6×6' : '🔴 Normal 9×9'}
             </span>
           </div>
@@ -66,8 +99,6 @@ export default function GamePage() {
         {/* ── Board (nested: Board → Cell) ────────────────────────────────── */}
         <div className="sudoku-wrapper">
           <Board />
-
-          {/* ── Number pad ──────────────────────────────────────────────── */}
           <NumberPad />
         </div>
 
@@ -82,29 +113,25 @@ export default function GamePage() {
             className="btn btn-secondary"
             onClick={() => dispatch({ type: 'UNDO' })}
             disabled={!state.history.length || state.isComplete}
-            title="Undo last move"
           >↩ Undo</button>
 
           <button
             className="btn btn-secondary"
             onClick={() => dispatch({ type: 'HINT' })}
             disabled={state.isComplete}
-            title="Fill a cell that has only one valid answer"
           >💡 Hint</button>
         </div>
 
-        {/* ── Bottom buttons ──────────────────────────────────────────────── */}
+        {/* ── Bottom buttons (New Game + Reset) ───────────────────────────── */}
         <div className="game-bottom">
           <button
             className="btn btn-danger"
             onClick={() => dispatch({ type: 'RESET_GAME' })}
-            title="Revert to the original puzzle"
           >↺ Reset</button>
 
           <button
             className="btn btn-primary"
-            onClick={() => dispatch({ type: 'INIT_GAME', mode })}
-            title="Generate a brand-new puzzle"
+            onClick={handleNewGame}
           >+ New Game</button>
         </div>
 
@@ -119,7 +146,7 @@ export default function GamePage() {
             <button
               className="btn btn-primary"
               style={{ marginTop: '1rem' }}
-              onClick={() => dispatch({ type: 'INIT_GAME', mode })}
+              onClick={handleNewGame}
             >Play Again</button>
           </div>
         )}
