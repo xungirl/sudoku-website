@@ -6,11 +6,9 @@ import { GameProvider } from './context/GameContext'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <GameProvider>
-        <App />
-      </GameProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <GameProvider>
+      <App />
+    </GameProvider>
+  </BrowserRouter>
 )

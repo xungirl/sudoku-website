@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { useGame } from '../context/GameContext'
 import Board from '../components/Board'
@@ -9,31 +9,23 @@ import { formatTime } from '../utils/sudoku'
 export default function GamePage() {
   const { mode } = useParams()
   const { state, dispatch } = useGame()
-  const [loading, setLoading] = useState(false)
 
   const validMode = mode === 'easy' || mode === 'normal'
   const isEasy = mode === 'easy'
 
-  // ── Init or resume game ────────────────────────────────────────────────────
+  // ── Init or resume game (synchronous — generation is fast now) ──────────
   useEffect(() => {
     if (!validMode) return
-    // If a game of this mode is already in progress, resume it
+    // Resume if a game of this mode already exists and is in progress
     if (state.mode === mode && state.board.length > 0 && !state.isComplete) return
-
-    setLoading(true)
-    // Use setTimeout to let loading UI render before heavy generation
-    const t = setTimeout(() => {
-      dispatch({ type: 'INIT_GAME', mode })
-      setLoading(false)
-    }, 50)
-    return () => clearTimeout(t)
-  }, [mode, validMode]) // eslint-disable-line react-hooks/exhaustive-deps
+    dispatch({ type: 'INIT_GAME', mode })
+  }, [mode]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Keyboard handler ───────────────────────────────────────────────────────
   useEffect(() => {
     if (!validMode) return
     const onKey = (e) => {
-      if (state.isComplete || loading) return
+      if (state.isComplete) return
       const k = e.key
 
       if (k === 'Backspace' || k === 'Delete' || k === '0') {
@@ -47,35 +39,30 @@ export default function GamePage() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [validMode, state.isComplete, state.size, loading, dispatch])
+  }, [validMode, state.isComplete, state.size, dispatch])
 
-  // ── Auto-clear hint message after 4 s ─────────────────────────────────────
+  // ── Auto-clear hint message ────────────────────────────────────────────────
   useEffect(() => {
     if (!state.hintMessage) return
     const t = setTimeout(() => dispatch({ type: 'CLEAR_HINT_MSG' }), 4000)
     return () => clearTimeout(t)
   }, [state.hintMessage, dispatch])
 
-  // ── New Game handler (with loading) ────────────────────────────────────────
+  // ── New Game handler ───────────────────────────────────────────────────────
   const handleNewGame = useCallback(() => {
-    setLoading(true)
-    setTimeout(() => {
-      dispatch({ type: 'INIT_GAME', mode })
-      setLoading(false)
-    }, 50)
+    dispatch({ type: 'INIT_GAME', mode })
   }, [dispatch, mode])
 
-  // ── Guard invalid mode (AFTER all hooks!) ──────────────────────────────────
+  // ── Guard invalid mode (AFTER all hooks) ───────────────────────────────────
   if (!validMode) return <Navigate to="/games" replace />
 
-  // ── Loading state ──────────────────────────────────────────────────────────
-  if (loading || state.board.length === 0) {
+  // ── Board not ready yet ────────────────────────────────────────────────────
+  if (!state.board.length) {
     return (
       <div className="container">
         <div className="game-page" style={{ textAlign: 'center', paddingTop: '4rem' }}>
           <div className="page-title">
             <h1>Generating Puzzle...</h1>
-            <p>Creating a {isEasy ? '6×6 Easy' : '9×9 Normal'} board with a unique solution</p>
           </div>
           <div className="loading-spinner" />
         </div>
@@ -96,7 +83,7 @@ export default function GamePage() {
           <Timer />
         </div>
 
-        {/* ── Board (nested: Board → Cell) ────────────────────────────────── */}
+        {/* ── Board + NumberPad ────────────────────────────────────────────── */}
         <div className="sudoku-wrapper">
           <Board />
           <NumberPad />
@@ -107,7 +94,7 @@ export default function GamePage() {
           <div className="hint-msg">{state.hintMessage}</div>
         )}
 
-        {/* ── Game control buttons ────────────────────────────────────────── */}
+        {/* ── Game controls ───────────────────────────────────────────────── */}
         <div className="game-controls">
           <button
             className="btn btn-secondary"
@@ -122,20 +109,17 @@ export default function GamePage() {
           >💡 Hint</button>
         </div>
 
-        {/* ── Bottom buttons (New Game + Reset) ───────────────────────────── */}
+        {/* ── New Game + Reset ─────────────────────────────────────────────── */}
         <div className="game-bottom">
-          <button
-            className="btn btn-danger"
-            onClick={() => dispatch({ type: 'RESET_GAME' })}
-          >↺ Reset</button>
-
-          <button
-            className="btn btn-primary"
-            onClick={handleNewGame}
-          >+ New Game</button>
+          <button className="btn btn-danger" onClick={() => dispatch({ type: 'RESET_GAME' })}>
+            ↺ Reset
+          </button>
+          <button className="btn btn-primary" onClick={handleNewGame}>
+            + New Game
+          </button>
         </div>
 
-        {/* ── Congratulations banner ──────────────────────────────────────── */}
+        {/* ── Congratulations ──────────────────────────────────────────────── */}
         {state.isComplete && (
           <div className="congrats-banner">
             <h2>🎉 Congratulations!</h2>
@@ -143,11 +127,9 @@ export default function GamePage() {
               You solved the {isEasy ? 'Easy 6×6' : 'Normal 9×9'} puzzle
               in <strong>{formatTime(state.timer)}</strong>!
             </p>
-            <button
-              className="btn btn-primary"
-              style={{ marginTop: '1rem' }}
-              onClick={handleNewGame}
-            >Play Again</button>
+            <button className="btn btn-primary" style={{ marginTop: '1rem' }} onClick={handleNewGame}>
+              Play Again
+            </button>
           </div>
         )}
       </div>

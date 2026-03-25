@@ -221,14 +221,16 @@ a { text-decoration: none; color: inherit; }
 
 .sudoku-grid--6 {
   grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   width: min(88vw, 384px);
-  height: min(88vw, 384px);
+  aspect-ratio: 1;
 }
 
 .sudoku-grid--9 {
   grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
   width: min(88vw, 486px);
-  height: min(88vw, 486px);
+  aspect-ratio: 1;
 }
 
 /* ─── Cells ──────────────────────────────────────────────────────────────────── */

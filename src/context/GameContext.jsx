@@ -57,8 +57,26 @@ function reducer(state, action) {
     }
 
     // ── Restore from localStorage ─────────────────────────────────────────────
-    case 'RESTORE_STATE':
-      return { ...action.state, timerActive: !action.state.isComplete && action.state.board.length > 0 }
+    case 'RESTORE_STATE': {
+      const s = action.state
+      // Validate saved state has required fields with correct types
+      if (
+        !s || !Array.isArray(s.board) || !s.board.length ||
+        !Array.isArray(s.solution) || !s.solution.length ||
+        !Array.isArray(s.prefilled) || !s.prefilled.length ||
+        !Array.isArray(s.initialBoard) || !s.initialBoard.length ||
+        typeof s.size !== 'number'
+      ) {
+        return initialState  // corrupt data — discard
+      }
+      return {
+        ...initialState,
+        ...s,
+        conflicts: getConflicts(s.board, s.size),
+        timerActive: !s.isComplete && s.board.length > 0,
+        history: [],
+      }
+    }
 
     // ── Cell selection ────────────────────────────────────────────────────────
     case 'SELECT_CELL': {
