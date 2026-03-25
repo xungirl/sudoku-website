@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sudoku Master</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>" />
+    <style>
+      body { background: #0f172a; color: #f8fafc; font-family: sans-serif; margin: 0; }
+      #loading-msg { text-align: center; padding-top: 30vh; }
+      #loading-msg h2 { color: #6366f1; }
+      #loading-msg p { color: #94a3b8; margin-top: 0.5rem; }
+    </style>
+    <script type="module" crossorigin src="/sudoku-website/assets/index-8cxGA5Gj.js"></script>
+    <link rel="stylesheet" crossorigin href="/sudoku-website/assets/index-Dua37AC_.css">
+  </head>
+  <body>
+    <div id="root">
+      <div id="loading-msg">
+        <h2>Sudoku Master</h2>
+        <p>Loading...</p>
+      </div>
+    </div>
+    <noscript>
+      <div style="text-align:center;padding:4rem;color:#f8fafc;font-size:1.2rem;">
+        Please enable JavaScript to play Sudoku Master.
+      </div>
+    </noscript>
+    <script>
+      // Catch any top-level errors and show them visually
+      window.onerror = function(msg, src, line, col, err) {
+        document.getElementById('root').innerHTML =
+          '<div style="padding:2rem;color:#ef4444;font-family:monospace;">' +
+          '<h2>Error Loading App</h2>' +
+          '<p>' + msg + '</p>' +
+          '<p>at ' + src + ':' + line + '</p>' +
+          '<p style="color:#94a3b8;margin-top:1rem;">Make sure you are running <code>npm run dev</code> and opening <code>http://localhost:5173</code></p>' +
+          '</div>';
+      };
+    </script>
+  </body>
+</html>
