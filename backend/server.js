@@ -15,8 +15,12 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? [process.env.CLIENT_URL].filter(Boolean)
+  : ['http://localhost:5173'];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: allowedOrigins.length ? allowedOrigins : true,
   credentials: true,
 }));
 app.use(express.json());
